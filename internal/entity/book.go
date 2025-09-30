@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type Book struct {
@@ -13,4 +14,9 @@ type Book struct {
 	Author    string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+func (b *Book) BeforeCreate(_ *gorm.DB) error {
+	b.ID = uuid.New()
+	return nil
 }
