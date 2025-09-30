@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/flovan30/chi-boilerplate-api/internal/config"
+	"github.com/flovan30/chi-boilerplate-api/internal/database"
 	"github.com/flovan30/chi-boilerplate-api/internal/logger"
 )
 
@@ -16,5 +17,10 @@ func main() {
 	customLogger, err := logger.NewLogger(cfg)
 	if err != nil {
 		log.Fatal("Failed to initialise logger", err)
+	}
+
+	db, err := database.InitDatabase(cfg, customLogger)
+	if err != nil {
+		log.Fatal("❌ Failed to connect to database:", err)
 	}
 }
